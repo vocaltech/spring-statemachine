@@ -49,7 +49,7 @@ public class BasicStateMachineConfiguration extends EnumStateMachineConfigurerAd
         return new StateMachineListenerAdapter<States, Events>() {
             @Override
             public void stateChanged(State<States, Events> from, State<States, Events> to) {
-                System.out.println("State changed to: " + to.getId());
+                System.out.println("State changed from: " + (from == null ? "none": from.getId()) + " - to: " + to.getId());
             }
         };
     }
