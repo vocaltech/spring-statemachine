@@ -1,4 +1,4 @@
-package fr.vocaltech.spring.statemachine;
+package fr.vocaltech.spring.statemachine.basic;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import java.util.EnumSet;
 
 @Configuration
 @EnableStateMachine
-public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<States, Events> {
+public class BasicStateMachineConfiguration extends EnumStateMachineConfigurerAdapter<States, Events> {
     @Override
     public void configure(StateMachineConfigurationConfigurer<States, Events> config) throws Exception {
         config

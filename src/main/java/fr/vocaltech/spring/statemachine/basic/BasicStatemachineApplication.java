@@ -1,4 +1,4 @@
-package fr.vocaltech.spring.statemachine;
+package fr.vocaltech.spring.statemachine.basic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -9,12 +9,12 @@ import org.springframework.statemachine.StateMachine;
 import reactor.core.publisher.Mono;
 
 @SpringBootApplication
-public class StatemachineApplication implements CommandLineRunner {
+public class BasicStatemachineApplication implements CommandLineRunner {
 	@Autowired
 	private StateMachine<States, Events> stateMachine;
 
 	public static void main(String[] args) {
-		SpringApplication.run(StatemachineApplication.class, args);
+		SpringApplication.run(BasicStatemachineApplication.class, args);
 	}
 
 	@Override
