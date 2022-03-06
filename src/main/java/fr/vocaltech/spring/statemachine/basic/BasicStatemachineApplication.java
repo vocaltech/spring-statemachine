@@ -19,19 +19,27 @@ public class BasicStatemachineApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		// start SSM
 		System.out.println("---> Start SSM");
-		System.out.println("curState: " + stateMachine.getState().getId());
+		// stateMachine.start(); ----> DEPRECATED
+		stateMachine.startReactively().subscribe();
 
+		// trigger EVENT1
 		System.out.println("---> trigger EVENT1");
 
 		stateMachine
 				.sendEvent(Mono.just(MessageBuilder.withPayload(Events.EVENT1).build()))
 				.subscribe();
 
+		// trigger EVENT2
 		System.out.println("---> trigger EVENT2");
 
 		stateMachine
 				.sendEvent(Mono.just(MessageBuilder.withPayload(Events.EVENT2).build()))
 				.subscribe();
+
+		// stop SSM
+		// stateMachine.stop(); ----> DEPRECATED
+		stateMachine.stopReactively().subscribe();
 	}
 }
