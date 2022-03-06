@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/state-diagram
+
+scale 250 width
+hide empty description
+[*] --> State1
+
+State1 --> State2: Event1
+State2 --> State1: Event2
+@enduml
