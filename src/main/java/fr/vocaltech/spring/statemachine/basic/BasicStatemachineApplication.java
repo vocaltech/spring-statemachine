@@ -19,6 +19,9 @@ public class BasicStatemachineApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("---> Start SSM");
+		System.out.println("curState: " + stateMachine.getState().getId());
+
 		System.out.println("---> trigger EVENT1");
 
 		stateMachine
