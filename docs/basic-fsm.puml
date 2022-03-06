@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/state-diagram
 
-scale 250 width
+scale 350 width
 hide empty description
 [*] --> State1
 
