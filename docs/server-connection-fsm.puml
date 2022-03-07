@@ -1,15 +1,16 @@
 @startuml
 'https://plantuml.com/state-diagram
 
-scale 250 width
+scale 580 width
 hide empty description
 
-[*] --> Reachable : true
-[*] --> NotReachable : false
+[*] --> STATE_INIT
+STATE_INIT --> STATE_REACHABLE : EVENT_SERVER_REACHABLE
+STATE_INIT --> STATE_NOT_REACHABLE : EVENT_SERVER_NOT_REACHABLE
 
-Reachable --> NotReachable : false
-NotReachable --> Recovery : true
-Recovery --> Reachable : true
-Recovery --> NotReachable : false
+STATE_REACHABLE --> STATE_NOT_REACHABLE : EVENT_SERVER_NOT_REACHABLE
+STATE_NOT_REACHABLE --> STATE_RECOVERY : EVENT_SERVER_REACHABLE
+STATE_RECOVERY --> STATE_REACHABLE : EVENT_SERVER_REACHABLE
+STATE_RECOVERY --> STATE_NOT_REACHABLE : EVENT_SERVER_NOT_REACHABLE
 
 @enduml
