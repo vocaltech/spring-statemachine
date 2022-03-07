@@ -1,4 +1,6 @@
 package fr.vocaltech.spring.statemachine.server;
 
-public class Events {
+public enum Events {
+    EVENT_SERVER_REACHABLE,
+    EVENT_SERVER_NOT_REACHABLE
 }
