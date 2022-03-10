@@ -2,6 +2,7 @@ package fr.vocaltech.spring.statemachine.server;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.config.EnableStateMachine;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
@@ -30,13 +31,17 @@ public class ServerStateMachineConfiguration extends EnumStateMachineConfigurerA
             .withStates()
             .initial(States.STATE_INIT)
             .states(EnumSet.allOf(States.class));
+
+        states
+            .withStates()
+            .state(States.STATE_NOT_REACHABLE, executeNotReachable());
     }
 
     @Override
     public void configure(StateMachineTransitionConfigurer<States, Events> transitions) throws Exception {
         transitions
                 .withExternal()
-                .source(States.STATE_INIT).target(States.STATE_REACHABLE).event(Events.EVENT_SERVER_REACHABLE)
+                .source(States.STATE_INIT).target(States.STATE_REACHABLE).event(Events.EVENT_SERVER_REACHABLE).action(initAction())
                 .and()
                 .withExternal()
                 .source(States.STATE_INIT).target(States.STATE_NOT_REACHABLE).event(Events.EVENT_SERVER_NOT_REACHABLE);
@@ -50,5 +55,19 @@ public class ServerStateMachineConfiguration extends EnumStateMachineConfigurerA
                 System.out.println("[StateMachineListener.stateChanged()] from: " + (from == null ? "none": from.getId()) + " - to: " + to.getId());
             }
         };
+    }
+
+    @Bean
+    public Action<States, Events> initAction() {
+        return context ->
+                System.out.println("[initAction()] source: " + context.getSource().getId() +
+                        " - target: " + context.getTarget().getId() +
+                        " - event: " + context.getEvent().name()
+                );
+    }
+
+    @Bean
+    public Action<States, Events> executeNotReachable() {
+        return context -> System.out.println("[executeNotReachable()] Do: " + context.getTarget().getId());
     }
 }
