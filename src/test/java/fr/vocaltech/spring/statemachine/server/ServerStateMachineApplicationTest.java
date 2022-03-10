@@ -35,11 +35,20 @@ class ServerStateMachineApplicationTest {
 
     @Test
     void test_from_Init_to_NotReachable_State() {
+        // extendedState: count var = 1
         stateMachine
                 .sendEvent(Mono.just(MessageBuilder.withPayload(Events.EVENT_SERVER_NOT_REACHABLE).build()))
                 .subscribe();
 
         assertEquals(States.STATE_NOT_REACHABLE, stateMachine.getState().getId());
+
+        stateMachine.stopReactively().subscribe();
+        stateMachine.startReactively().subscribe();
+
+        // extendedState: count var = 2
+        stateMachine
+                .sendEvent(Mono.just(MessageBuilder.withPayload(Events.EVENT_SERVER_NOT_REACHABLE).build()))
+                .subscribe();
     }
 
     @Disabled
