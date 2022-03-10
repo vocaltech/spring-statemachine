@@ -68,6 +68,11 @@ public class ServerStateMachineConfiguration extends EnumStateMachineConfigurerA
 
     @Bean
     public Action<States, Events> executeNotReachable() {
-        return context -> System.out.println("[executeNotReachable()] Do: " + context.getTarget().getId());
+        return context -> {
+            int count = (int) context.getExtendedState().getVariables().getOrDefault("count", 0);
+            count++;
+            context.getExtendedState().getVariables().put("count", count);
+            System.out.println("[executeNotReachable()] Do: " + context.getTarget().getId() + " - count var: " + count);
+        };
     }
 }
